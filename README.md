@@ -110,3 +110,72 @@ terraform/
 - **Логи и временные файлы** (`crash.log`, `.terraform.tfstate.lock.info`) — служебная информация.
 - **Локальные переопределения** (`override.tf`) — файлы для локального тестирования, не предназначенные для общего репозитория.
 - **Конфигурации CLI** (`.terraformrc`) — локальные настройки пользователя.
+
+**Эксперимент с удалением и перемещением файлов (третий и четвёртый коммит)**
+```
+echo "will_be_deleted" > will_be_deleted.txt
+echo "will_be_moved" > will_be_moved.txt
+git add will_be_deleted.txt will_be_moved.txt
+git commit -m "Prepare to delete and move."
+[main 34aaf09] Prepare to delete and move.
+ 2 files changed, 2 insertions(+)
+ create mode 100644 will_be_deleted.txt
+ create mode 100644 will_be_moved.txt
+git log --oneline -1
+34aaf09 (HEAD -> main) Prepare to delete and move.
+git rm will_be_deleted.txt
+git mv will_be_moved.txt has_been_moved.txt
+ls -l
+total 20
+-rw-rw-r-- 1 aleks aleks 5279 Jun  2 08:04 README.md
+-rw-rw-r-- 1 aleks aleks   14 Jun  2 12:43 has_been_moved.txt
+git status
+Текущая ветка: main
+Ваша ветка опережает «origin/main» на 3 коммита.
+  (используйте «git push», чтобы опубликовать ваши локальные коммиты)
+
+Изменения, которые будут включены в коммит:
+  (используйте «git restore --staged <файл>...», чтобы убрать из индекса)
+	переименовано: will_be_moved.txt -> has_been_moved.txt
+	удалено:       will_be_deleted.txt
+git commit -m "Moved and deleted."
+[main 0409ae7] Moved and deleted.
+ 2 files changed, 1 deletion(-)
+ rename will_be_moved.txt => has_been_moved.txt (100%)
+ delete mode 100644 will_be_deleted.txt
+```
+**Проверка изменений**
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git log
+commit 0409ae7dea4ead9060f5a0c4d443fbf5ce87d4b2 (HEAD -> main)
+Author: Aleksandr <asimaev@gmail.com>
+Date:   Tue Jun 2 12:56:14 2026 +0300
+
+    Moved and deleted.
+
+commit 34aaf09b11b9b78d411d79d01b113a7546e0cac3
+Author: Aleksandr <asimaev@gmail.com>
+Date:   Tue Jun 2 12:44:33 2026 +0300
+
+    Prepare to delete and move.
+
+commit 4e1c21af44952e77061dc6003740564b1b692766
+Author: Aleksandr <asimaev@gmail.com>
+Date:   Tue Jun 2 08:07:09 2026 +0300
+
+    Added gitignore
+
+commit 7d61e79af5b7e16f61f9beab1499f990abb1c3b0
+Author: Aleksandr <asimaev@gmail.com>
+Date:   Tue Jun 2 07:26:23 2026 +0300
+
+    First commit
+
+commit 195b8b270edbe8f69a61294d64c5db2fd3ea6911 (origin/main, origin/HEAD)
+Author: Aleksandr-afk-22 <asimaev@gmail.com>
+Date:   Mon Jun 1 19:47:17 2026 +0300
+
+    Initial commit
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
+
+```
