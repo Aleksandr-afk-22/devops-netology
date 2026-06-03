@@ -110,7 +110,22 @@ terraform/
 - **Логи и временные файлы** (`crash.log`, `.terraform.tfstate.lock.info`) — служебная информация.
 - **Локальные переопределения** (`override.tf`) — файлы для локального тестирования, не предназначенные для общего репозитория.
 - **Конфигурации CLI** (`.terraformrc`) — локальные настройки пользователя.
-
+**доработка**
+ - `.terraform/` Все файлы и подкаталоги внутри любой директории с именем .terraform
+ - `*.tfstate` Все файлы, имя которых заканчивается на .tfstate (включая файл .tfstate)
+ - `*.tfstate.*` Все файлы в названии которых содержится .tfstate.
+ - `*.tfvars` Все файлы, имя которых заканчивается на .tfvars (включая файл .tfvars)
+ - `*.tfvars.json` Все файлы, имя которых заканчивается на .tfvars.json (включая .tfvars.json)
+ - `crash.log` Только файлы с именем crash.log
+ - `crash.*.log` Все файлы, начинающиеся с crash., заканчивающиеся на .log, и имеющие любые символы между точками
+ - `override.tf` Только файлы с именем override.tf
+ - `*_override.tf` Все файлы, заканчивающиеся на _override.tf
+ - `*_override.tf.json` Все файлы, заканчивающиеся на _override.tf.json
+ - `override.tf.json` Только файлы с именем override.tf.json
+ - `.terraformrc` Файл с именем .terraformrc
+ - `terraform.rc` Файл с именем terraform.rc
+ - `.terraform.tfstate.lock.info` Только файл с именем .terraform.tfstate.lock.info
+ 
 **Эксперимент с удалением и перемещением файлов (третий и четвёртый коммит)**
 ```
 echo "will_be_deleted" > will_be_deleted.txt
