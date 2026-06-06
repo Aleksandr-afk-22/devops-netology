@@ -1,4 +1,7 @@
 # devops-netology
+
+## задание №1 "Основы Git"
+
 **Клонирование репозитория**
 ```
 git clone https://github.com/Aleksandr-afk-22/devops-netology.git
@@ -195,3 +198,181 @@ Date:   Mon Jun 1 19:47:17 2026 +0300
 aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
 
 ```
+## Задание №2 "Основы Git"
+
+**проверка внешних репозиториев**
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git remote -v
+origin	https://github.com/Aleksandr-afk-22/devops-netology.git (fetch)
+origin	https://github.com/Aleksandr-afk-22/devops-netology.git (push)
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
+
+```
+**добавляем дополнительный репозиторий**
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git remote add gitlab git@gitlab.com:aleksandr-afk-22-group/devops-netology.git
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git remote -v
+gitlab	git@gitlab.com:aleksandr-afk-22-group/devops-netology.git (fetch)
+gitlab	git@gitlab.com:aleksandr-afk-22-group/devops-netology.git (push)
+origin	https://github.com/Aleksandr-afk-22/devops-netology.git (fetch)
+origin	https://github.com/Aleksandr-afk-22/devops-netology.git (push)
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
+
+```
+**отправка проекта в новый репозиторий**
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git push -u gitlab main
+The authenticity of host 'gitlab.com (172.65.251.78)' can't be established.
+ED25519 key fingerprint is: SHA256:eUXGGm1YGsMAS7vkcx6JOJdOGHPem5gQp4taiCfCLB8
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'gitlab.com' (ED25519) to the list of known hosts.
+Перечисление объектов: 27, готово.
+Подсчет объектов: 100% (27/27), готово.
+При сжатии изменений используется до 4 потоков
+Сжатие объектов: 100% (20/20), готово.
+Запись объектов: 100% (27/27), 5.74 KiB | 839.00 KiB/s, готово.
+Total 27 (delta 7), reused 3 (delta 0), pack-reused 0 (from 0)
+To gitlab.com:aleksandr-afk-22-group/devops-netology.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'gitlab/main'.
+
+```
+
+### Теги
+**проверка логов и текущего состояния**
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git log --oneline -5
+0b870b3 (HEAD -> main, origin/main, origin/HEAD, gitlab/main) синтаксис
+3d2c5f8 доработки gitignore
+0bda1b1 add README
+0409ae7 Moved and deleted.
+34aaf09 Prepare to delete and move.
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
+
+```
+создание легковесного тега
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git tag v0.0
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git tag -l
+v0.0
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git push origin v0.0
+Username for 'https://github.com': Aleksandr-afk-22
+Password for 'https://Aleksandr-afk-22@github.com': 
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/Aleksandr-afk-22/devops-netology.git
+ * [new tag]         v0.0 -> v0.0
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git push gitlab v0.0
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To gitlab.com:aleksandr-afk-22-group/devops-netology.git
+ * [new tag]         v0.0 -> v0.0
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
+
+```
+создание аннотированного тега
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git tag -a v0.1 -m "Аннотированный тег версии 0.1"
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git tag -l
+v0.0
+v0.1
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git show v0.1
+tag v0.1
+Tagger: Aleksandr <asimaev@gmail.com>
+Date:   Sat Jun 6 08:12:52 2026 +0300
+
+Аннотированный тег версии 0.1
+
+commit 0b870b370668371770e8861c02da90b470b9b014 (HEAD -> main, tag: v0.1, tag: v0.0, origin/main, origin/HEAD, gitlab/main)
+
+```
+Аннотированный тег хранит в себе дополнительные метаданные: имя автора тега, email, дату создания и сообщение. Легковесный тег — это просто указатель на коммит.
+
+![gitlab_tags](screenshots/gitlab_tags.png)
+
+![github_tags](screenshots/github_tags.png)
+
+
+### Ветки
+
+проверка текущей ветки
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git branch 
+* main
+```
+переходим к коммиту с названием Prepare to delete and move
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git log --oneline
+0b870b3 (HEAD -> main, tag: v0.1, tag: v0.0, origin/main, origin/HEAD, gitlab/main) синтаксис
+3d2c5f8 доработки gitignore
+0bda1b1 add README
+0409ae7 Moved and deleted.
+34aaf09 Prepare to delete and move.
+4e1c21a Added gitignore
+7d61e79 First commit
+195b8b2 Initial commit
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git checkout 34aaf09
+Примечание: переключение на «34aaf09».
+
+Вы сейчас в состоянии «отсоединённого указателя HEAD». Можете осмотреться,
+внести экспериментальные изменения и зафиксировать их, также можете
+отменить любые коммиты, созданные в этом состоянии, не затрагивая другие
+ветки, переключившись обратно на любую ветку.
+
+Если хотите создать новую ветку для сохранения созданных коммитов, можете
+сделать это (сейчас или позже), используя команду switch с параметром -c.
+Например:
+
+  git switch -c <новая-ветка>
+
+Или отмените эту операцию с помощью:
+
+  git switch -
+
+Отключите этот совет, установив переменную конфигурации
+advice.detachedHead в значение false
+
+HEAD сейчас на 34aaf09 Prepare to delete and move.
+```
+создаём новую ветку
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git switch -c fix
+Переключились на новую ветку «fix»
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git branch 
+* fix
+  main
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
+```
+отправляем в репозиторий github
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git push -u origin fix
+Username for 'https://github.com': Aleksandr-afk-22
+Password for 'https://Aleksandr-afk-22@github.com': 
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: 
+remote: Create a pull request for 'fix' on GitHub by visiting:
+remote:      https://github.com/Aleksandr-afk-22/devops-netology/pull/new/fix
+remote: 
+To https://github.com/Aleksandr-afk-22/devops-netology.git
+ * [new branch]      fix -> fix
+branch 'fix' set up to track 'origin/fix'.
+```
+
+![github_graph](screenshots/github_graph.png)
+
+вносим изменения в README.md пушим в репозиторий GitHub
+```
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ git log --oneline --graph --all
+* fc53c57 (HEAD -> fix, origin/fix) изменён README.md в ветке FIX
+| * 0b870b3 (tag: v0.1, tag: v0.0, origin/main, origin/HEAD, gitlab/main, main) синтаксис
+| * 3d2c5f8 доработки gitignore
+| * 0bda1b1 add README
+| * 0409ae7 Moved and deleted.
+|/  
+* 34aaf09 Prepare to delete and move.
+* 4e1c21a Added gitignore
+* 7d61e79 First commit
+* 195b8b2 Initial commit
+aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
+
+```
+
