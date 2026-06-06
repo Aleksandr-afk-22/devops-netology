@@ -375,4 +375,6 @@ aleks@aleks-nb:~/project/devops-netology/devops-netology$ git log --oneline --gr
 aleks@aleks-nb:~/project/devops-netology/devops-netology$ 
 
 ```
+### Использование VS Code
 
+![vscode](screenshots/vscode.png)
